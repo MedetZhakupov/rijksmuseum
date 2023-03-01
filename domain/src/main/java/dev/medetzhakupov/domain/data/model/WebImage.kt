@@ -1,4 +1,4 @@
-package dev.medetzhakupov.domain.data
+package dev.medetzhakupov.domain.data.model
 
 data class WebImage(
     val guid: String,
