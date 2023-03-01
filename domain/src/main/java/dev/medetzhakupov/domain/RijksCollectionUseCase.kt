@@ -6,5 +6,5 @@ class RijksCollectionUseCase @Inject constructor(
     private val pagerFactory: PagerFactory
 ) {
 
-    fun getCollection() = pagerFactory.providePager().flow
+    fun getCollection() = pagerFactory.providePager()
 }

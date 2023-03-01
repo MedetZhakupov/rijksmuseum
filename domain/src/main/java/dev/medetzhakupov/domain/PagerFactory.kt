@@ -15,5 +15,5 @@ class PagerFactory @Inject constructor(
         ),
         pagingSourceFactory = {
             RijksCollectionPagingSource(rijksMuseumService)
-        })
+        }).flow
 }
