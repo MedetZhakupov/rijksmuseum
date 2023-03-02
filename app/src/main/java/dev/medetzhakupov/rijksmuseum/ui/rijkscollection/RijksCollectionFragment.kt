@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Space
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
@@ -34,14 +35,14 @@ class RijksCollectionFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-//                RijksMuseumTheme {
+                RijksMuseumTheme {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
                         pagingRijksCollection()
                     }
-//                }
+                }
             }
         }
     }
@@ -55,13 +56,13 @@ class RijksCollectionFragment : Fragment() {
                 items = artObjects,
                 key = { item: ArtObject -> item.id }
             ) { art ->
-                Text(
-                    modifier = Modifier
-                        .height(75.dp),
-                    text = art?.title ?: "",
+                RijksCollectionItem(
+                    imageUrl = art!!.headerImage.url,
+                    text = art.title,
+                    modifier = Modifier.wrapContentHeight()
                 )
 
-                Divider()
+                Spacer(modifier = Modifier.height(32.dp))
             }
 
             when (val state = artObjects.loadState.refresh) { //FIRST LOAD
