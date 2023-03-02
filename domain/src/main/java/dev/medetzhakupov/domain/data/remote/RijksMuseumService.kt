@@ -8,6 +8,6 @@ private const val API_KEY = "0fiuZFh4"
 
 interface RijksMuseumService {
 
-    @GET("nl/collection?key=${API_KEY}&ps=20")
+    @GET("nl/collection?key=${API_KEY}&ps=20&s=artist")
     suspend fun getCollection(@Query("p") page: Int): RijksData
 }
