@@ -7,6 +7,7 @@ data class RijksCollection(
 
 data class ArtistCollectionItem(
     val id: String,
+    val objectNumber: String,
     val artist: String,
     val title: String,
     val longTitle: String,

@@ -19,6 +19,7 @@ class RijksMuseumRepo(
                     artistsCollection = entry.value.map { art ->
                         ArtistCollectionItem(
                             id = art.id,
+                            objectNumber = art.objectNumber,
                             artist = art.principalOrFirstMaker,
                             title = art.title,
                             longTitle = art.longTitle,

@@ -11,26 +11,29 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.medetzhakupov.domain.model.RijksCollection
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun RijksCollectionScreen(
-    viewState: RijksCollectionViewState,
-    onLoadMore: () -> Unit,
+    navigateToDetail: (objectNumber: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    when (viewState) {
+    val viewModel: RijksCollectionViewModel = hiltViewModel()
+
+    when (val viewState = viewModel.viewState.collectAsStateWithLifecycle().value) {
         RijksCollectionViewState.Error -> Error(Modifier.fillMaxHeight())
         is RijksCollectionViewState.Loaded -> {
             RijksCollectionList(
                 rijksCollectionList = viewState.rijksCollectionList,
                 showPageLoading = viewState.loadingMore,
-                onLoadMore = onLoadMore,
+                onLoadMore = { viewModel.loadMoreRijksCollection() },
+                navigateToDetail = navigateToDetail,
                 modifier = modifier,
             )
         }
@@ -41,7 +44,9 @@ fun RijksCollectionScreen(
 @Composable
 private fun Error(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -56,7 +61,9 @@ private fun Error(modifier: Modifier = Modifier) {
 @Composable
 private fun Loading(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -64,12 +71,13 @@ private fun Loading(modifier: Modifier = Modifier) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun RijksCollectionList(
     rijksCollectionList: List<RijksCollection>,
     showPageLoading: Boolean,
     onLoadMore: () -> Unit,
+    navigateToDetail: (objectNumber: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val listState = rememberLazyListState()
@@ -78,33 +86,34 @@ private fun RijksCollectionList(
 
     LazyColumn(
         state = listState,
-        modifier = modifier.background(color = MaterialTheme.colorScheme.inverseOnSurface),
+        modifier = modifier,
     ) {
         item {
-            CenterAlignedTopAppBar(
+            SmallTopAppBar(
                 title = {
-                    Text(text = "Rijks Collection")
+                    Text(
+                        text = "Rijks Collection",
+                        style = MaterialTheme.typography.titleLarge,
+                    )
                 },
                 modifier = Modifier
             )
         }
         rijksCollectionList.forEach { (artist, collection) ->
             stickyHeader {
-                Card(
-                    shape = RectangleShape,
-                    elevation = CardDefaults.cardElevation(4.dp),
-                    modifier = Modifier.fillMaxWidth()
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = MaterialTheme.colorScheme.inverseOnSurface)
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
                 ) {
-                    Row {
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(
-                            text = artist,
-                            fontSize = 24.sp,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                    }
+                    Text(
+                        text = artist,
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
                 }
             }
 
@@ -113,8 +122,8 @@ private fun RijksCollectionList(
                 key = { it.id }
             ) { item ->
                 RijksCollectionItem(
-                    imageUrl = item.headerImage.url,
-                    text = item.title,
+                    item = item,
+                    onItemClick = navigateToDetail,
                     modifier = Modifier.wrapContentHeight()
                 )
             }
