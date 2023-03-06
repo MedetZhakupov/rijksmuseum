@@ -35,10 +35,10 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier,
                         )
                     }
-                    composable("${Route.ARTIST_COLLECTION_ITEM}/{objectNumber}") { backStackEntry ->
+                    composable("${Route.ARTIST_COLLECTION_ITEM}/{objectNumber}") {
                         ArtistArtScreen(
-                            backStackEntry.arguments?.getString("objectNumber")
-                                ?: throw java.lang.IllegalArgumentException()
+                            modifier = Modifier,
+                            onBackClick = { navController.navigateUp() }
                         )
                     }
                 }
