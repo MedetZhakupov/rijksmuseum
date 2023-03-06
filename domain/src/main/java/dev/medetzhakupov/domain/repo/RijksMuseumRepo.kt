@@ -1,5 +1,6 @@
 package dev.medetzhakupov.domain.repo
 
+import dev.medetzhakupov.domain.data.model.ArtistArtObject
 import dev.medetzhakupov.domain.data.remote.RijksMuseumService
 import dev.medetzhakupov.domain.model.Art
 import dev.medetzhakupov.domain.model.ArtistCollectionItem
@@ -12,6 +13,7 @@ class RijksMuseumRepo(
         val rijksData = rijksMuseumService.getCollection(page)
 
         return rijksData.artObjects
+            .filter { it.hasImage }
             .groupBy { it.principalOrFirstMaker }
             .map { entry ->
                 RijksCollection(
@@ -37,5 +39,11 @@ class RijksMuseumRepo(
                     }
                 )
             }
+    }
+
+    suspend fun getArtistArtObject(objectNumber: String): ArtistArtObject {
+        val artObject = rijksMuseumService.getArtistArtObject(objectNumber)
+
+        return artObject
     }
 }
