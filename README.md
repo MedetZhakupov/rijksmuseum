@@ -1,11 +1,16 @@
-# rijksmuseum
-Browse Riiks museum's collection
+# Rijksmuseum
+Riiks museum's collection sample app
 
-## Warning: 
+### Note: 
 This is just a playground project to showcase the Android app development basic skills.
 Nothing fancy but still enough to know if the person knows Android development or not.
 
-What has been used for this project:
+
+### App architecture diagram:
+<img width="783" alt="App architecture diagram" src="https://user-images.githubusercontent.com/8719059/223507799-18415341-554e-4a14-8eec-2ae6cb8b82ef.png">
+
+
+### What has been used for this project:
  - MVVM approach with unidirectional dataflow
  - Coroutines/Flow/FlowState
  - Jetpack Compose
