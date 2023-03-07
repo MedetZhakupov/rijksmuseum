@@ -1,21 +1,21 @@
 package dev.medetzhakupov.domain.model
 
-data class RijksCollection(
+data class RijksDataUIModel(
     val artist: String,
-    val artistsCollection: List<ArtistCollectionItem>
+    val artistsCollection: List<ArtistObjectUiModel>
 )
 
-data class ArtistCollectionItem(
+data class ArtistObjectUiModel(
     val id: String,
     val objectNumber: String,
     val artist: String,
     val title: String,
     val longTitle: String,
-    val headerImage: Art,
-    val fullImage: Art,
+    val headerImage: ImageUiModel,
+    val fullImage: ImageUiModel,
 )
 
-data class Art(
+data class ImageUiModel(
     val url: String,
     val height: Int,
     val width: Int,

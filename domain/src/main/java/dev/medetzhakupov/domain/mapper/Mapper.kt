@@ -1,25 +1,25 @@
 package dev.medetzhakupov.domain.mapper
 
 import dev.medetzhakupov.domain.data.model.ArtObject
-import dev.medetzhakupov.domain.model.Art
-import dev.medetzhakupov.domain.model.ArtistCollectionItem
-import dev.medetzhakupov.domain.model.RijksCollection
+import dev.medetzhakupov.domain.model.ImageUiModel
+import dev.medetzhakupov.domain.model.ArtistObjectUiModel
+import dev.medetzhakupov.domain.model.RijksDataUIModel
 
-fun Map.Entry<String, List<ArtObject>>.mapToUiModel() = RijksCollection(
+fun Map.Entry<String, List<ArtObject>>.mapToUiModel() = RijksDataUIModel(
         artist = key,
         artistsCollection = value.map { art ->
-            ArtistCollectionItem(
+            ArtistObjectUiModel(
                 id = art.id,
                 objectNumber = art.objectNumber,
                 artist = art.principalOrFirstMaker,
                 title = art.title,
                 longTitle = art.longTitle,
-                headerImage = Art(
+                headerImage = ImageUiModel(
                     url = art.headerImage.url,
                     height = art.headerImage.height,
                     width = art.headerImage.width,
                 ),
-                fullImage = Art(
+                fullImage = ImageUiModel(
                     url = art.webImage.url,
                     height = art.webImage.height,
                     width = art.webImage.width,

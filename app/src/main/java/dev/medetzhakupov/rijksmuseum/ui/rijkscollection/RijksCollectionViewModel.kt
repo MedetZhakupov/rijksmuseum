@@ -3,7 +3,7 @@ package dev.medetzhakupov.rijksmuseum.ui.rijkscollection
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.medetzhakupov.domain.model.RijksCollection
+import dev.medetzhakupov.domain.model.RijksDataUIModel
 import dev.medetzhakupov.domain.usecase.RijksCollectionUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,8 +36,8 @@ class RijksCollectionViewModel @Inject constructor(
                     _viewState.value = it.copy(loadingMore = true)
                 }
             }
-            val newList = mutableListOf<RijksCollection>()
-            (_viewState.value as? RijksCollectionViewState.Loaded)?.rijksCollectionList?.let {
+            val newList = mutableListOf<RijksDataUIModel>()
+            (_viewState.value as? RijksCollectionViewState.Loaded)?.rijksDataUIModelList?.let {
                 newList.addAll(it)
             }
             newList.addAll(rijksCollectionUseCase.getRijksCollection(page))
@@ -49,7 +49,7 @@ class RijksCollectionViewModel @Inject constructor(
 sealed class RijksCollectionViewState {
     object Loading : RijksCollectionViewState()
     data class Loaded(
-        val rijksCollectionList: List<RijksCollection>,
+        val rijksDataUIModelList: List<RijksDataUIModel>,
         val loadingMore: Boolean = false,
     ) : RijksCollectionViewState()
 

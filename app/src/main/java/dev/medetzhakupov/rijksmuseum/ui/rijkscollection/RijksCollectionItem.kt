@@ -9,12 +9,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import dev.medetzhakupov.domain.model.ArtistCollectionItem
+import dev.medetzhakupov.domain.model.ArtistObjectUiModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RijksCollectionItem(
-    item: ArtistCollectionItem,
+    item: ArtistObjectUiModel,
     onItemClick: (objectNumber: String) -> Unit,
     modifier: Modifier = Modifier
 ) {

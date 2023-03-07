@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.medetzhakupov.domain.model.RijksCollection
+import dev.medetzhakupov.domain.model.RijksDataUIModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
@@ -30,7 +30,7 @@ fun RijksCollectionScreen(
         RijksCollectionViewState.Error -> Error(Modifier.fillMaxHeight())
         is RijksCollectionViewState.Loaded -> {
             RijksCollectionList(
-                rijksCollectionList = viewState.rijksCollectionList,
+                rijksDataUIModelList = viewState.rijksDataUIModelList,
                 showPageLoading = viewState.loadingMore,
                 onLoadMore = { viewModel.loadMoreRijksCollection() },
                 navigateToDetail = navigateToDetail,
@@ -74,7 +74,7 @@ private fun Loading(modifier: Modifier = Modifier) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun RijksCollectionList(
-    rijksCollectionList: List<RijksCollection>,
+    rijksDataUIModelList: List<RijksDataUIModel>,
     showPageLoading: Boolean,
     onLoadMore: () -> Unit,
     navigateToDetail: (objectNumber: String) -> Unit,
@@ -99,7 +99,7 @@ private fun RijksCollectionList(
                 modifier = Modifier
             )
         }
-        rijksCollectionList.forEach { (artist, collection) ->
+        rijksDataUIModelList.forEach { (artist, collection) ->
             stickyHeader {
                 Row(
                     modifier = Modifier
