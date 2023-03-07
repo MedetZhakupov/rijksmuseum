@@ -5,23 +5,37 @@ data class ArtObjectDetail(
     val description: String,
     val dimensions: List<Dimension>,
     val hasImage: Boolean,
-    val historicalPersons: List<String>,
     val id: String,
-    val longTitle: String,
     val materials: List<String>,
-    val objectCollection: List<String>,
     val objectNumber: String,
     val objectTypes: List<String>,
-    val physicalMedium: String,
-    val plaqueDescriptionDutch: String,
-    val plaqueDescriptionEnglish: String,
-    val principalMaker: String,
     val principalMakers: List<PrincipalMaker>,
-    val principalOrFirstMaker: String,
     val productionPlaces: List<String>,
-    val showImage: Boolean,
     val subTitle: String,
     val title: String,
-    val titles: List<String>,
     val webImage: Image
-)
+) {
+    data class Dating(
+        val period: Int,
+        val presentingDate: String,
+        val sortingDate: Int,
+        val yearEarly: Int,
+        val yearLate: Int
+    )
+
+    data class Dimension(
+        val part: Any?,
+        val precision: Any?,
+        val type: String,
+        val unit: String,
+        val value: String
+    )
+
+    data class PrincipalMaker(
+        val dateOfBirth: String,
+        val dateOfDeath: String,
+        val labelDesc: String,
+        val name: String,
+        val productionPlaces: List<String>,
+    )
+}
