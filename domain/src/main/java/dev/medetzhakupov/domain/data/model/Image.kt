@@ -1,6 +1,6 @@
 package dev.medetzhakupov.domain.data.model
 
-data class HeaderImage(
+data class Image(
     val guid: String,
     val height: Int,
     val offsetPercentageX: Int,

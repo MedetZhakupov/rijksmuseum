@@ -23,5 +23,5 @@ data class ArtObjectDetail(
     val subTitle: String,
     val title: String,
     val titles: List<String>,
-    val webImage: WebImage
+    val webImage: Image
 )

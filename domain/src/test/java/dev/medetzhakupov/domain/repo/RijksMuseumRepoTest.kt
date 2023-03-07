@@ -6,7 +6,6 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -18,7 +17,7 @@ internal class RijksMuseumRepoTest {
             ArtObject(
                 id = "id",
                 hasImage = true,
-                headerImage = HeaderImage(
+                headerImage = Image(
                     guid = "guid",
                     height = 500,
                     offsetPercentageX = 0,
@@ -26,15 +25,12 @@ internal class RijksMuseumRepoTest {
                     url = "url",
                     width = 500,
                 ),
-                links = Links(self = "self", web = "web"),
                 longTitle = "longTitle",
                 objectNumber = "12",
-                permitDownload = true,
                 principalOrFirstMaker = "artis name",
-                productionPlaces = listOf("Amsterdam"),
                 showImage = true,
                 title = "title",
-                webImage = WebImage(
+                webImage = Image(
                     guid = "guid",
                     height = 500,
                     offsetPercentageX = 0,
