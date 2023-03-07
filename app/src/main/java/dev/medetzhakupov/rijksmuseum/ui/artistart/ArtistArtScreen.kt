@@ -127,7 +127,7 @@ private fun ArtObjectDetails(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = artObjectDetail.principalMakers.first().name,
+                text = artObjectDetail.principalOrFirstMaker,
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.SemiBold,
             )
