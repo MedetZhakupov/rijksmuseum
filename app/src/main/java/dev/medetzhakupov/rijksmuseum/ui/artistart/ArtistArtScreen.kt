@@ -18,7 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import dev.medetzhakupov.domain.data.model.ArtObjectDetail
+import dev.medetzhakupov.domain.model.ArtObjectDetailUiModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
@@ -44,8 +44,8 @@ fun ArtistArtScreen(
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 private fun ArtObjectDetails(
-    artObjectDetail: ArtObjectDetail,
-    onBackClick:() -> Unit,
+    artObjectDetail: ArtObjectDetailUiModel,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -64,9 +64,10 @@ private fun ArtObjectDetails(
         },
         modifier = modifier
     ) {
-        Column(modifier = Modifier
-            .padding(horizontal = 16.dp)
-            .verticalScroll(rememberScrollState())
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
             AsyncImage(
                 model = artObjectDetail.webImage.url,
@@ -86,7 +87,7 @@ private fun ArtObjectDetails(
             )
 
             Text(
-                text = "${artObjectDetail.productionPlaces.firstOrNull()}, ${artObjectDetail.dating.yearEarly} - ${artObjectDetail.dating.yearLate}" ,
+                text = "${artObjectDetail.productionPlaces.firstOrNull()}, ${artObjectDetail.dating.yearEarly} - ${artObjectDetail.dating.yearLate}",
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
@@ -108,14 +109,25 @@ private fun ArtObjectDetails(
             Spacer(modifier = Modifier.height(16.dp))
 
             DetailRow(title = "Original Title", detail = artObjectDetail.title)
-            DetailRow(title = "Date Created", detail = "${artObjectDetail.dating.yearEarly} - ${artObjectDetail.dating.yearLate}")
-            DetailRow(title = "Provenance", detail = artObjectDetail.productionPlaces.first { it.isNotBlank() })
-            DetailRow(title = "Materials", detail = artObjectDetail.materials.filter { it.isNotBlank() }.joinToString())
+            DetailRow(
+                title = "Date Created",
+                detail = "${artObjectDetail.dating.yearEarly} - ${artObjectDetail.dating.yearLate}"
+            )
+            DetailRow(
+                title = "Provenance",
+                detail = artObjectDetail.productionPlaces.first { it.isNotBlank() })
+            DetailRow(
+                title = "Materials",
+                detail = artObjectDetail.materials.filter { it.isNotBlank() }.joinToString()
+            )
             DetailRow(
                 title = "Dimensions",
-                detail =artObjectDetail.subTitle
+                detail = artObjectDetail.subTitle
             )
-            DetailRow(title = "Type", detail = artObjectDetail.objectTypes.filter { it.isNotBlank() }.joinToString())
+            DetailRow(
+                title = "Type",
+                detail = artObjectDetail.objectTypes.filter { it.isNotBlank() }.joinToString()
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 

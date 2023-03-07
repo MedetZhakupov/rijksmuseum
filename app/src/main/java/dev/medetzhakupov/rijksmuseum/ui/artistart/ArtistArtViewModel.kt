@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.medetzhakupov.domain.data.model.ArtObjectDetail
+import dev.medetzhakupov.domain.model.ArtObjectDetailUiModel
 import dev.medetzhakupov.domain.usecase.ArtistArtUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,7 +30,7 @@ class ArtistArtViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _viewState.value = ArtistArtViewState.Loading
-                val artObjectDetail = artistArtUseCase.getArtistArtObject(objectNumber = objectNumber).artObject
+                val artObjectDetail = artistArtUseCase.getArtistArtObject(objectNumber = objectNumber)
                 _viewState.value = ArtistArtViewState.Loaded(artObjectDetail)
             } catch (error: Exception) {
                 _viewState.value = ArtistArtViewState.Error
@@ -42,7 +42,7 @@ class ArtistArtViewModel @Inject constructor(
 sealed class ArtistArtViewState {
     object Loading : ArtistArtViewState()
     data class Loaded(
-        val artist: ArtObjectDetail,
+        val artist: ArtObjectDetailUiModel,
     ) : ArtistArtViewState()
     object Error : ArtistArtViewState()
 }

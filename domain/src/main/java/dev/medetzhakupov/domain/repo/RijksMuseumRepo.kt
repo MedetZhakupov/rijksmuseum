@@ -1,8 +1,8 @@
 package dev.medetzhakupov.domain.repo
 
-import dev.medetzhakupov.domain.data.model.ArtistArtObject
 import dev.medetzhakupov.domain.data.remote.RijksMuseumService
 import dev.medetzhakupov.domain.mapper.mapToUiModel
+import dev.medetzhakupov.domain.model.ArtObjectDetailUiModel
 import dev.medetzhakupov.domain.model.RijksDataUIModel
 
 class RijksMuseumRepo(
@@ -17,9 +17,7 @@ class RijksMuseumRepo(
             .map { entry -> entry.mapToUiModel() }
     }
 
-    suspend fun getArtistArtObject(objectNumber: String): ArtistArtObject {
-        val artObject = rijksMuseumService.getArtistArtObject(objectNumber)
-
-        return artObject
+    suspend fun getArtistArtObject(objectNumber: String): ArtObjectDetailUiModel {
+        return rijksMuseumService.getArtistArtObject(objectNumber).artObject.mapToUiModel()
     }
 }
